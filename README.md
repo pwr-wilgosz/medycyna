@@ -45,3 +45,7 @@ We use RSpec for tests. To run tests:
 
 We deploy application on heroku.
 
+## References:
+
+- styling and layouts: https://github.com/seyhunak/twitter-bootstrap-rails
+
