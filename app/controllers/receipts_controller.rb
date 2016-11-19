@@ -1,38 +1,32 @@
 class ReceiptsController < ApplicationController
   load_and_authorize_resource :receipt
 
-  # GET /receipts
-  # GET /receipts.json
   def index
-    @receipts = current_user.receipts
+    @receipts = if current_user.doctor?
+      current_user.added_receipts
+    elsif current_user.patient?
+      current_user.receipts
+    end
   end
 
-  # GET /receipts/1
-  # GET /receipts/1.json
   def show
   end
 
-  # GET /receipts/new
   def new
-    @receipt = Receipt.new
+    @receipt = current_user.added_receipts.new
   end
 
-  # GET /receipts/1/edit
   def edit
   end
 
-  # POST /receipts
-  # POST /receipts.json
   def create
     @receipt = Receipt.new(receipt_params)
 
     respond_to do |format|
       if @receipt.save
         format.html { redirect_to @receipt, notice: 'Receipt was successfully created.' }
-        format.json { render :show, status: :created, location: @receipt }
       else
         format.html { render :new }
-        format.json { render json: @receipt.errors, status: :unprocessable_entity }
       end
     end
   end

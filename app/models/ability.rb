@@ -5,7 +5,8 @@ class Ability
     if user.present?
       case user.role
       when 'doctor'
-        can [:read, :create, :update], Receipt
+        can [:manage], Receipt
+        can [:read, :create, :update], User
       when 'pharmacist'
         can [:read, :update], Receipt
       end

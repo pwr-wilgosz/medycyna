@@ -9,11 +9,44 @@
 current_time = Time.now
 User.destroy_all
 User.create([
-  { email: 'sebastian@example.com', password: 'password' },
-  { email: 'jedrzej@example.com', password: 'password', password_confirmation: 'password' },
-  { email: 'doctor@example.com', password: 'password', password_confirmation: 'password' },
-  { email: 'patient@example.com', password: 'password', password_confirmation: 'password' }
+  {
+    first_name: 'Sebastian',
+    last_name: 'Wilgosz',
+    email: 'sebastian@example.com',
+    password: 'password',
+    pesel: 12345678999,
+    role: 'patient'
+  },
 
+  {
+    first_name: 'Jędrzej',
+    last_name: 'Janaś',
+    email: 'jedrzej@example.com',
+    password: 'password',
+    password_confirmation: 'password',
+    pesel: 12345678900,
+    role: 'patient'
+  },
+
+  {
+    first_name: 'Gregory',
+    last_name: 'House',
+    email: 'doctor@example.com',
+    password: 'password',
+    password_confirmation: 'password',
+    pesel: 12345678901,
+    role: 'doctor'
+  },
+
+  {
+    first_name: 'Sample',
+    last_name: 'Pharmacist',
+    email: 'pharmacist@example.com',
+    password: 'password',
+    password_confirmation: 'password',
+    pesel: 12345678902,
+    role: 'pharmacist'
+  }
 ])
 
 Receipt.destroy_all

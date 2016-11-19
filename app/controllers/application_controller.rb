@@ -4,6 +4,12 @@ class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied, with: :on_access_denied
 
   def index
+    if current_user
+      redirect_to controller: 'receipts', action: 'new'
+    else
+      redirect_to controller: 'devise/sessions', action: 'new'
+    end
+
   end
 
   private
