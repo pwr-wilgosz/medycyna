@@ -1,6 +1,7 @@
 class Receipt < ApplicationRecord
   belongs_to :user, dependent: :destroy
   belongs_to :doctor, class_name: 'User', dependent: :destroy
+
   has_many :line_items
 
   validates :user, :doctor, presence: true
