@@ -25,32 +25,25 @@ class ReceiptsController < ApplicationController
   def create
     @receipt = current_user.added_receipts.new(receipt_params.merge(user: @user))
 
-    respond_to do |format|
-      if @receipt.save
-        format.html { redirect_to @user, notice: 'Receipt was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    if @receipt.save
+      redirect_to @user, notice: 'Receipt was successfully created.'
+    else
+      render :new
     end
   end
 
   def update
-    respond_to do |format|
-      if @receipt.update(receipt_params)
-        format.html { redirect_to @receipt, notice: 'Receipt was successfully updated.' }
-      else
-        format.html { render :edit }
-      end
+    if @receipt.update(receipt_params)
+      redirect_to @receipt, notice: 'Receipt was successfully updated.'
+    else
+      render :edit
     end
   end
 
   def destroy
     user = receipt.user
     @receipt.destroy
-    respond_to do |format|
-      format.html { redirect_to user, notice: 'Receipt was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to user, notice: 'Receipt was successfully destroyed.'
   end
 
   private

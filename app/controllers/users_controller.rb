@@ -14,18 +14,19 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params.merge(role: 'patient'))
-    respond_to do |format|
-      if @user.save
-        format.html { redirect_to user_receipts_path(@user) }
-      else
-        format.html { render :new }
-      end
+    if @user.save
+      redirect_to user_receipts_path(@user)
+    else
+      render :new
     end
   end
+
+  private
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :pesel, :email)
   end
+
   def receipt
     @user = User.find(params[:id])
   end
