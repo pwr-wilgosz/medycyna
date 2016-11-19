@@ -6,7 +6,12 @@ class ApplicationController < ActionController::Base
 
   def index
     if current_user
-      redirect_to users_path
+      case current_user.role
+      when 'doctor'
+        redirect_to users_path
+      when 'patient'
+        redirect_to user_path(current_user)
+      end
     else
       redirect_to controller: 'devise/sessions', action: 'new'
     end

@@ -1,0 +1,12 @@
+<% if current_user %>
+  <% if can? :index, User %>
+    <li><%= link_to "Patients", users_path  %></li>
+  <% end %>
+  <% if can? :create, User %>
+    <li><%= link_to "New User", new_user_path  %></li>
+  <% end %>
+  <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
+<% else %>
+  <li><%= link_to 'Login', new_user_session_path %></li>
+<% end %>
+

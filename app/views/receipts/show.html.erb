@@ -14,7 +14,6 @@
   <thead>
     <tr>
       <th><%= LineItem.human_attribute_name(:name) %></th>
-      <th><%= LineItem.human_attribute_name(:usage) %></th>
       <th><%= LineItem.human_attribute_name(:amount) %></th>
       <th><%= LineItem.human_attribute_name(:usage) %></th>
       <th><%= LineItem.human_attribute_name(:refunded) %></th>
@@ -25,9 +24,8 @@
     <% @receipt.line_items.each do |line_item| %>
       <tr>
         <td><%= line_item.name %></td>
-        <td><%= line_item.usage %></td>
         <td><%= line_item.amount %></td>
-        <td><%= line_item.receipt_id %></td>
+        <td><%= line_item.usage %></td>
         <td><%= line_item.refunded %></td>
         <td><%=l line_item.created_at %></td>
       </tr>
@@ -37,11 +35,14 @@
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
               user_path(@receipt.user), :class => 'btn btn-default'  %>
-<%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_receipt_path(@receipt), :class => 'btn btn-default' %>
-<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              receipt_path(@receipt),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
+
+<% if can? :manage, Receipt %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                edit_receipt_path(@receipt), :class => 'btn btn-default' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                receipt_path(@receipt),
+                :method => 'delete',
+                :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                :class => 'btn btn-danger' %>
+<% end %>
 
