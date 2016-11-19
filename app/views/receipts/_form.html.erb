@@ -25,8 +25,14 @@
     <%=f.error_span(:closed) %>
   </div>
 
+  <h2>Lne Items for this receipt</h2>
+  <%= f.fields_for :line_items do |l| %>
+    <%= render "line_item_fields", :f => l %>
+  <% end %>
+  <%= link_to_add_fields "Add line item", f, :line_items %>
+
   <div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
+    <div class="col-md-12">
       <%= f.submit nil, :class => 'btn btn-primary' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 user_path(@receipt.user), :class => 'btn btn-default' %>
