@@ -15,7 +15,11 @@ class ApplicationController < ActionController::Base
     else
       redirect_to controller: 'devise/sessions', action: 'new'
     end
+  end
 
+  def search
+    @user = User.find_by!(pesel: params[:pesel])
+    redirect_to user_path(@user)
   end
 
   private

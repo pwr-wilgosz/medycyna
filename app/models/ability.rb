@@ -10,6 +10,7 @@ class Ability
         can [:manage], User
       when 'pharmacist'
         can [:read, :update], Receipt
+        can [:show], User
       else
         can :show, User, id: user.id
         can :show, Receipt, user_id: user.id

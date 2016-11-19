@@ -25,7 +25,7 @@
     <%=f.error_span(:closed) %>
   </div>
 
-  <h2>Lne Items for this receipt</h2>
+  <h2>Lne items for this receipt</h2>
   <%= f.fields_for :line_items do |l| %>
     <%= render "line_item_fields", :f => l %>
   <% end %>

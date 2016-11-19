@@ -1,4 +1,12 @@
-<h2>This is main page.</p>
-
-<p>Find me in app/views/application/index.html.erb</p>
+<%= form_tag controller: 'application', action: "search" do %>
+  <div class="form-group">
+  <label class='control-label col-md-2'>Search User</label>
+    <div class="col-md-8">
+      <%= text_field_tag :pesel, '', :class => 'form-control', placeholder: 'Pesel' %>
+    </div>
+  </div>
+  <div class='col-md-2'>
+    <%= submit_tag 'Submit', class: 'btn btn-primary' %>
+  </div>
+<% end %>
 
