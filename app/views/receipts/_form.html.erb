@@ -1,4 +1,6 @@
-<%= form_for @receipt, :html => { :class => "form-horizontal receipt" } do |f| %>
+<%= form_for @receipt,
+  :html => { :class => "form-horizontal receipt" },
+  url: @receipt.persisted? ? receipt_path(@receipt) : user_receipts_path(@user) do |f| %>
 
   <% if @receipt.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
@@ -16,26 +18,20 @@
   <% end %>
 
   <div class="form-group">
-    <%= f.label :user_id, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :user_id, :class => 'form-control' %>
-    </div>
-    <%=f.error_span(:user_id) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :closed, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :closed, :class => 'form-control' %>
+    <%= f.label :closed, :class => 'control-label col-md-11', style: 'text-align: left' %>
+    <div class="col-md-1">
+      <%= f.check_box :closed, :class => 'form-control' %>
     </div>
     <%=f.error_span(:closed) %>
   </div>
 
   <div class="form-group">
-    <div class="col-lg-offset-2 col-lg-10">
+    <div class="col-md-offset-2 col-md-10">
       <%= f.submit nil, :class => 'btn btn-primary' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                receipts_path, :class => 'btn btn-default' %>
+                user_path(@receipt.user), :class => 'btn btn-default' %>
     </div>
   </div>
 
 <% end %>
+

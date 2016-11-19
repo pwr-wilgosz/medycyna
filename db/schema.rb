@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20161119130344) do
 
   create_table "receipts", force: :cascade do |t|
     t.integer  "user_id"
-    t.boolean  "closed"
+    t.boolean  "closed", null: false, default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "doctor_id"

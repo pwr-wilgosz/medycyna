@@ -1,5 +1,7 @@
 class ReceiptsController < ApplicationController
-  load_and_authorize_resource :receipt
+  load_resource :user, only: [:index, :new, :create]
+  load_and_authorize_resource :receipt, through: :user, only: [:index, :new, :create]
+  load_and_authorize_resource :receipt, only: [:destroy, :edit, :update, :show]
 
   def index
     @receipts = if current_user.doctor?
@@ -13,26 +15,24 @@ class ReceiptsController < ApplicationController
   end
 
   def new
-    @receipt = current_user.added_receipts.new
+    @receipt = current_user.added_receipts.new(user: @user)
   end
 
   def edit
   end
 
   def create
-    @receipt = Receipt.new(receipt_params)
+    @receipt = current_user.added_receipts.new(receipt_params.merge(user: @user))
 
     respond_to do |format|
       if @receipt.save
-        format.html { redirect_to @receipt, notice: 'Receipt was successfully created.' }
+        format.html { redirect_to @user, notice: 'Receipt was successfully created.' }
       else
         format.html { render :new }
       end
     end
   end
 
-  # PATCH/PUT /receipts/1
-  # PATCH/PUT /receipts/1.json
   def update
     respond_to do |format|
       if @receipt.update(receipt_params)
@@ -45,8 +45,6 @@ class ReceiptsController < ApplicationController
     end
   end
 
-  # DELETE /receipts/1
-  # DELETE /receipts/1.json
   def destroy
     @receipt.destroy
     respond_to do |format|
@@ -59,7 +57,7 @@ class ReceiptsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def receipt_params
-      params.require(:receipt).permit(:user_id, :closed)
+      params.require(:receipt).permit(:closed)
     end
 end
 

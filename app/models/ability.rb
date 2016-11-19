@@ -6,7 +6,7 @@ class Ability
       case user.role
       when 'doctor'
         can [:manage], Receipt
-        can [:read, :create, :update], User
+        can [:manage], User
       when 'pharmacist'
         can [:read, :update], Receipt
       end
